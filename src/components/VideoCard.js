@@ -1,34 +1,18 @@
-import { Link } from "react-router-dom"
+import React from "react";
 
-const VideoCard = videoInfo => {
-  const { id, snippet, statistics } = videoInfo
-  const { title, channelTitle, thumbnails } = snippet
-  const { viewCount } = statistics
-  // console.log(videoInfo)
-  return (
-    <Link to={"watch?v=" + id}>
-      <div className="w-[16rem] rounded-lg">
-        <img className="rounded-lg" alt="thumbnail" src={thumbnails.medium.url} />
-        <div className="mt-2 flex items-start gap-2">
-          <img className="w-8" alt="user" src="https://static.vecteezy.com/system/resources/previews/008/442/086/original/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg" />
-          <div className="">
-            <h2 className="">{title}</h2>
-            <h3 className="text-gray-500 text-sm">{channelTitle}</h3>
-            <h4 className="text-gray-500 text-sm">{viewCount} views </h4>
-          </div>
-        </div>
-      </div>
-    </Link>
-  )
-}
+const VideoCard = ({ info }) => {
+  const { snippet, statistics } = info;
+  const { channelTitle, title, thumbnails } = snippet;
+  return <div className="p-2 ml-5 mr-2  w-96 shadow-lg h-80 rounded-sm  relative">
+    <img className="rounded-lg" alt="thumbnails" src={thumbnails.medium.url}/>
+    <ul>
+        <li className="font-bold py-2 text-sm ">{title}</li>
+        <li className="text-gray-600">{channelTitle}</li>
+        <li className=" text-gray-600">{statistics.viewCount}  views  •</li>
+        {/* <li className=" text-gray-600"> </li> */}
+        
+    </ul>
+  </div>;
+};
 
-// Higher Order Component
-export const AdVideoCard = videoInfo => {
-  return (
-    <div className="border-2 border-red-400 p-1">
-      <VideoCard {...videoInfo} />
-    </div>
-  )
-}
-
-export default VideoCard
+export default VideoCard;

@@ -1,33 +1,37 @@
-import { useEffect } from "react"
-import { useDispatch } from "react-redux"
-import { closeSideBar } from "../utils/appSlice"
-import { useSearchParams } from "react-router-dom"
-import CommentContainer from "./CommentContainer"
-import LiveChat from "./LiveChat"
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { closeMenu } from "../utils/appSlice";
+import { useSearchParams } from "react-router-dom";
+import CommentsContainer from "./CommentsContainer";
+import LiveChat from "./LiveChat";
 
 const WatchPage = () => {
-  const [searchParam] = useSearchParams()
-  const videoId = searchParam.get("v")
-
-  const dispatch = useDispatch()
+  const [searchParams] = useSearchParams();
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(closeSideBar())
-  }, [])
+    dispatch(closeMenu());
+  }, []);
   return (
-    <>
-      <div className="col-span-5 p-2">
-        <iframe className="w-[100%]" height="450" src={"https://www.youtube.com/embed/" + videoId} title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+    <div className="flex flex-col w-full">
+      <div className="px-5 flex w-full">
+        <div className="">
+          <iframe
+            width="900"
+            height="500"
+            src={"https://www.youtube.com/embed/" + searchParams.get("v")}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          ></iframe>
+        </div>
+        <div className="w-full">
+          <LiveChat />
+        </div>
       </div>
-
-      <div className="col-span-2 mt-2 border bg-slate-50 rounded-md">
-        <LiveChat />
-      </div>
-
-      <div className="col-span-5 p-2">
-        <CommentContainer />
-      </div>
-    </>
-  )
-}
+      <CommentsContainer />
+    </div>
+  );
+};
 
 export default WatchPage;

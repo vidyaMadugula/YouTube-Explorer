@@ -1,16 +1,28 @@
-import Button from "./Button"
+import React from "react";
+import Button from "./Button";
 
 const ButtonList = () => {
-  const btnList = ["music", "arts", "jazz", "hip-hop", "dance", "history", "news", "watched", "New to you", "Recently uploaded"]
-  return (
-    <div className="flex my-2 items-start">
-      <Button name="All" style="text-white bg-gray-950 " />
+  const buttonNames = [
+    "All",
+    "Gadget",
+    "Gaming",
+    "Live",
+    "News",
+    "Cricket",
+    "Podcasts",
+    "Soccer",
+    "Travel",
+    "Recently uploaded",
+    "watched"
+  ];
 
-      {btnList.map(btnName => (
-        <Button name={btnName} key={btnName} />
+  return (
+    <div className="flex ml-5">
+      {buttonNames.map((name, index) => (
+        <Button key={index} name={name} />
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default ButtonList
+export default ButtonList;
