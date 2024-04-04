@@ -1,78 +1,73 @@
 import React, { useEffect, useState } from "react";
-import ChatMessage from "./ChatMessage";
 import { useDispatch, useSelector } from "react-redux";
+import { FaUserCircle } from "react-icons/fa";
+import { AiOutlineSend } from "react-icons/ai";
+
+import ChatMessageCard from "../components/ChatMessageCard";
 import { addMessage } from "../utils/chatSlice";
-import { YOUTUBE_LIVECHAT_API } from "../utils/constants";
-import { generateRandomName, makeRandomMessage } from "../utils/helper";
+import {
+  generateRandomCompliment,
+  generateRandomId,
+  generateRandomName,
+} from "../utils/helper";
 
 const LiveChat = () => {
-  const [liveMessage, setLiveMessage] = useState("");
   const dispatch = useDispatch();
-
-  const ChatMessages = useSelector((store) => store.chat.messages);
+  const chatMessages = useSelector((store) => store.chat.messages);
+  const [userMessage, setUserMessage] = useState("");
 
   useEffect(() => {
-    const i = setInterval(() => {
-      // console.log("API Polling");
+    const intervalId = setInterval(() => {
+      const newMessage = {
+        id: generateRandomId(5),
+        name: generateRandomName(),
+        message: generateRandomCompliment(),
+      };
+      dispatch(addMessage(newMessage));
+    }, 2000);
 
-      dispatch(
-        addMessage({
-          name: generateRandomName(),
-          message: makeRandomMessage(20) + "🚀",
-        })
-      );
-    }, 1500);
+    return () => clearInterval(intervalId);
+  }, [dispatch]);
 
-    // Garbage collection
-    return () => clearInterval(i);
-  }, []);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newMessage = {
+      id: generateRandomId(5),
+      name: "vidya",
+      message: userMessage,
+    };
+    dispatch(addMessage(newMessage));
+    setUserMessage("");
+  };
+
+  const handleChange = (e) => {
+    setUserMessage(e.target.value);
+  };
 
   return (
-    <>
-      <div>
-        <div className="flex">
-          <img
-            className="w-10 h-10 px-1 ml-3 mb-1"
-            alt="chat-icon"
-            src="https://www.svgrepo.com/show/529481/chat-round-dots.svg"
-          />
-          <h1 className="font-bold py-1.5 text-xl">Live Chat</h1>
-        </div>
-        <div className="ml-2 p-2 border border-slate-300 h-[408px] w-full bg-slate-100 rounded-lg overflow-y-scroll flex flex-col-reverse">
-          {
-            // Disclaimer: Don't use indexes as keys
-            ChatMessages.map((c, i) => (
-              <ChatMessage key={i} name={c.name} message={c.message} />
-            ))
-          }
-        </div>
+    <div>
+      <div className="box-border overflow-y-scroll flex flex-col-reverse h-96">
+        {chatMessages.map((message, i) => (
+          <ChatMessageCard key={i} {...message} />
+        ))}
       </div>
+      <form onSubmit={handleSubmit}>
+        <div className="bg-white flex p-2 gap-2 rounded-xl items-center">
+          <FaUserCircle className="md:text-4xl " />
 
-      <form
-        className="w-full p-2 ml-2 rounded-lg"
-        onSubmit={(e) => {
-          e.preventDefault();
-          dispatch(
-            addMessage({
-              name: "Vidya",
-              message: liveMessage,
-            })
-          );
-          setLiveMessage("")
-        }}
-      >
-        <input
-          className="w-96 p-2 rounded-lg border border-slate-300"
-          type="text"
-          placeholder="type your message here..."
-          value={liveMessage}
-          onChange={(e) => setLiveMessage(e.target.value)}
-        />
-        <button className="px-2 ml-4 bg-red-600 text-white rounded-lg">
-          Send
-        </button>
+          <input
+            className="outline-none border-b-2 w-full border-blue-200"
+            placeholder="Say something..."
+            value={userMessage}
+            name="vidya"
+            onChange={handleChange}
+          />
+          <button type="submit" className="bg-none border-none">
+            <AiOutlineSend className="w-10 cursor-pointer" />
+          </button>
+        </div>
       </form>
-    </>
+    </div>
   );
 };
 
