@@ -1,6 +1,6 @@
 import { Provider } from "react-redux";
 import { RouterProvider } from "react-router-dom";
-import { appRouter } from "./utils/routes";
+import appRouter  from "./utils/routes";
 
 import store from "./utils/store";
 
@@ -15,3 +15,5 @@ function App() {
 }
 
 export default App;
+
+

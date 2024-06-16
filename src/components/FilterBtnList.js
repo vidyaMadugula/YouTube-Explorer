@@ -34,11 +34,6 @@ const FilterBtnList = () => {
   return (
     <div>
       <div className="flex items-center border-b-2 md:border-none md:justify-center">
-        {/*  <Link to={"/"}>
-          <button className="flex items-center bg-gray-100 p-1 m-1 rounded-lg">
-            <MdExplore /> Explore
-          </button>
-        </Link>*/}
         <span className="border-r-2 border-gray-200 h-6 "></span>
         {buttonList(list, style)}
         {buttonList(mdList, mdStyle)}

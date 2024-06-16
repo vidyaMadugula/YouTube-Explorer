@@ -4,7 +4,7 @@ import WatchPage from "../components/WatchPage";
 import Body from "../components/Body";
 import Results from "../components/Results";
 
-export const appRouter = createBrowserRouter([
+const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <Body />,
@@ -24,3 +24,4 @@ export const appRouter = createBrowserRouter([
     ],
   },
 ]);
+export default appRouter;

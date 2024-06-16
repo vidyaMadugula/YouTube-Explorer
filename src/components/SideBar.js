@@ -34,7 +34,7 @@ const SideBar = () => {
   };
   if (!isMenuOpen) return null;
   return (
-    <div className="w-52 mx-1 hidden md:block">
+    <div className="mx-1 hidden md:block w-fit">
       {btns.map((btn, i) => {
         return (
           <Link key={i} to={btn.to}>

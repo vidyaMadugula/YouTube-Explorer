@@ -12,6 +12,7 @@ const ResultVideoCard = ({ info }) => {
         alt="thubnail"
         className="rounded-xl md:w-fit w-full"
       />
+      
       <div className="flex flex-col px-2 md:gap-5">
         <h2 className="font-semibold">{title}</h2>
         <div className="flex items-center text-xs font-semibold text-gray-500">
